@@ -2,11 +2,19 @@
 import React, { useState } from "react";
 import "./App.css";
 import BottomRow from "./BottomRow";
+import Timer from "./Timer";
 
 function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
   const [lionsScore, setLionsScore] = useState(0);
   const [tigersScore, setTigersScore] = useState(0);
+  const [gameStats, setGameStats] = useState({
+    down: 1,
+    toGo: 10,
+    ballOn: 1,
+    quarter: 1
+  });
+  const [timeControl, setTimeControl] = useState("reset");
 
   const increaseScore = (team, points) => {
     team === "lions"
@@ -25,13 +33,15 @@ function App() {
 
             <div className="home__score">{lionsScore}</div>
           </div>
-          <div className="timer">00:03</div>
+          <div className="timer">
+            <Timer timeControl={timeControl} />
+          </div>
           <div className="away">
             <h2 className="away__name">Tigers</h2>
             <div className="away__score">{tigersScore}</div>
           </div>
         </div>
-        <BottomRow />
+        <BottomRow gameStats={gameStats} />
       </section>
       <section className="buttons">
         <div className="homeButtons">
@@ -69,6 +79,69 @@ function App() {
             }}
           >
             Away Field Goal
+          </button>
+        </div>
+        <div>
+          <button
+            className="downButton"
+            onClick={() => {
+              gameStats.down === 4
+                ? setGameStats({ ...gameStats, down: 1 })
+                : setGameStats({ ...gameStats, down: gameStats.down + 1 });
+            }}
+          >
+            Down
+          </button>
+          <button
+            className="togoButton"
+            onClick={() => {
+              gameStats.toGo === 1
+                ? setGameStats({ ...gameStats, toGo: 10 })
+                : setGameStats({ ...gameStats, toGo: gameStats.toGo - 1 });
+            }}
+          >
+            To Go
+          </button>
+          <button
+            className="ballonButton"
+            onClick={() => {
+              gameStats.ballOn === 99
+                ? setGameStats({ ...gameStats, ballOn: 1 })
+                : setGameStats({ ...gameStats, ballOn: gameStats.ballOn + 1 });
+            }}
+          >
+            Ball on
+          </button>
+          <button
+            className="quarterButton"
+            onClick={() => {
+              gameStats.quarter === 4
+                ? setGameStats({ ...gameStats, quarter: 1 })
+                : setGameStats({
+                    ...gameStats,
+                    quarter: gameStats.quarter + 1
+                  });
+            }}
+          >
+            Quarter
+          </button>
+          <button
+            className="resetTimer"
+            onClick={() => setTimeControl("reset")}
+          >
+            Reset Timer
+          </button>
+          <button
+            className="pauseTimer"
+            onClick={() => setTimeControl("pause")}
+          >
+            Pause Timer
+          </button>
+          <button
+            className="resumeTimer"
+            onClick={() => setTimeControl("resume")}
+          >
+            Resume Timer
           </button>
         </div>
       </section>
