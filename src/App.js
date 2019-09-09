@@ -8,12 +8,10 @@ function App() {
   const [lionsScore, setLionsScore] = useState(0);
   const [tigersScore, setTigersScore] = useState(0);
 
-  const homeScore = points => {
-    setLionsScore(lionsScore + points);
-  };
-
-  const awayScore = points => {
-    setTigersScore(tigersScore + points);
+  const increaseScore = (team, points) => {
+    team === "lions"
+      ? setLionsScore(lionsScore + points)
+      : setTigersScore(tigersScore + points);
   };
 
   return (
@@ -41,7 +39,7 @@ function App() {
           <button
             className="homeButtons__touchdown"
             onClick={e => {
-              homeScore(7);
+              increaseScore("lions", 7);
             }}
           >
             Home Touchdown
@@ -49,7 +47,7 @@ function App() {
           <button
             className="homeButtons__fieldGoal"
             onClick={e => {
-              homeScore(3);
+              increaseScore("lions", 3);
             }}
           >
             Home Field Goal
@@ -59,7 +57,7 @@ function App() {
           <button
             className="awayButtons__touchdown"
             onClick={e => {
-              awayScore(7);
+              increaseScore("tigers", 7);
             }}
           >
             Away Touchdown
@@ -67,7 +65,7 @@ function App() {
           <button
             className="awayButtons__fieldGoal"
             onClick={e => {
-              awayScore(3);
+              increaseScore("tigers", 3);
             }}
           >
             Away Field Goal
