@@ -71,6 +71,7 @@
   background-color: var(--black);
   border: 2px solid white;
   border-radius: 6px;
+  font-variant-numeric: tabular-nums;
 }
 
 .bottomRow {

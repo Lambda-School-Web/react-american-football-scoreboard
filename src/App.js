@@ -15,11 +15,21 @@ function App() {
     quarter: 1
   });
   const [timeControl, setTimeControl] = useState("reset");
+  const [toGoTerm, setToGoTerm] = useState("");
+  const [ballOnTerm, setBallOnTerm] = useState("");
 
   const increaseScore = (team, points) => {
     team === "lions"
       ? setLionsScore(lionsScore + points)
       : setTigersScore(tigersScore + points);
+  };
+
+  const handleBallOnChange = e => {
+    setBallOnTerm(e.target.value);
+  };
+
+  const handleToGoChange = e => {
+    setToGoTerm(e.target.value);
   };
 
   return (
@@ -82,6 +92,38 @@ function App() {
           </button>
         </div>
         <div>
+          <div>
+            <button
+              className="togoButton"
+              onClick={() => {
+                setGameStats({ ...gameStats, toGo: toGoTerm });
+              }}
+            >
+              To Go
+            </button>
+            <input
+              type="text"
+              value={toGoTerm}
+              placeholder="to GO"
+              onChange={e => handleToGoChange(e)}
+            />
+          </div>
+          <div>
+            <button
+              className="ballonButton"
+              onClick={() => {
+                setGameStats({ ...gameStats, ballOn: ballOnTerm });
+              }}
+            >
+              Ball on
+            </button>
+            <input
+              type="text"
+              value={ballOnTerm}
+              placeholder="Ball On"
+              onChange={e => handleBallOnChange(e)}
+            />
+          </div>
           <button
             className="downButton"
             onClick={() => {
@@ -91,26 +133,6 @@ function App() {
             }}
           >
             Down
-          </button>
-          <button
-            className="togoButton"
-            onClick={() => {
-              gameStats.toGo === 1
-                ? setGameStats({ ...gameStats, toGo: 10 })
-                : setGameStats({ ...gameStats, toGo: gameStats.toGo - 1 });
-            }}
-          >
-            To Go
-          </button>
-          <button
-            className="ballonButton"
-            onClick={() => {
-              gameStats.ballOn === 99
-                ? setGameStats({ ...gameStats, ballOn: 1 })
-                : setGameStats({ ...gameStats, ballOn: gameStats.ballOn + 1 });
-            }}
-          >
-            Ball on
           </button>
           <button
             className="quarterButton"
@@ -125,24 +147,26 @@ function App() {
           >
             Quarter
           </button>
-          <button
-            className="resetTimer"
-            onClick={() => setTimeControl("reset")}
-          >
-            Reset Timer
-          </button>
-          <button
-            className="pauseTimer"
-            onClick={() => setTimeControl("pause")}
-          >
-            Pause Timer
-          </button>
-          <button
-            className="resumeTimer"
-            onClick={() => setTimeControl("resume")}
-          >
-            Resume Timer
-          </button>
+          <div>
+            <button
+              className="resetTimer"
+              onClick={() => setTimeControl("reset")}
+            >
+              Reset Timer
+            </button>
+            <button
+              className="pauseTimer"
+              onClick={() => setTimeControl("pause")}
+            >
+              Pause Timer
+            </button>
+            <button
+              className="resumeTimer"
+              onClick={() => setTimeControl("resume")}
+            >
+              Resume Timer
+            </button>
+          </div>
         </div>
       </section>
     </div>
