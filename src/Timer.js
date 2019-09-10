@@ -3,45 +3,27 @@ import "./App.css";
 
 const Timer = props => {
   const [countDown, setCountDown] = useState(12 * 60);
-  let myTimer = null;
-  let displayTimer = "12:00";
-
-  //   useEffect(() => {
-  //     myTimer = setInterval(() => handleTimer(), 1000);
-  //   }, []);
 
   useEffect(() => {
-    handleTimer();
-  }, [props.timeControl]);
+    let myTimer = null;
 
-  function handleTimer() {
-    console.log(props);
-    console.log(countDown);
-    console.log(myTimer);
-    switch (props.timeControl) {
-      case "pause":
-        clearInterval(myTimer);
-        myTimer = null;
-        break;
-      case "resume":
-        setCountDown(countDown - 1);
-        if (myTimer) {
-          break;
-        }
-        myTimer = setInterval(() => handleTimer(), 1000);
-        break;
-      case "reset":
-        setCountDown(12 * 60);
-        clearInterval(myTimer);
-        myTimer = null;
-        break;
-      default:
-        break;
+    if (props.timeControl === "pause") {
+      clearInterval(myTimer);
+    } else if (props.timeControl === "resume") {
+      myTimer = setInterval(() => setCountDown(countDown - 1), 1000);
+    } else {
+      setCountDown(12 * 60);
+      clearInterval(myTimer);
     }
-  }
-  //(displayTimer = `${Math.floor(countDown / 60)}:${countDown % 60}`));
 
-  return <>{displayTimer}</>;
+    return () => clearInterval(myTimer);
+  }, [props, countDown]);
+
+  return (
+    <>{`${Math.floor(countDown / 60)}:${
+      countDown % 60 < 10 ? `0${countDown % 60}` : countDown % 60
+    }`}</>
+  );
 };
 
 export default Timer;
