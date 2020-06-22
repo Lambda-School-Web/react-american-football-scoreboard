@@ -71,6 +71,7 @@
   background-color: var(--black);
   border: 2px solid white;
   border-radius: 6px;
+  font-variant-numeric: tabular-nums;
 }
 
 .bottomRow {
@@ -117,6 +118,17 @@
 .homeButtons__fieldGoal,
 .awayButtons__touchdown,
 .awayButtons__fieldGoal {
+  margin: 1rem;
+  border-radius: 4px;
+}
+
+.downButton,
+.togoButton,
+.ballonButton,
+.quarterButton,
+.resetTimer,
+.pauseTimer,
+.resumeTimer {
   margin: 1rem;
   border-radius: 4px;
 }
